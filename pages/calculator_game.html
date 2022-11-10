@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator game</title>
+    <style>@import url(../styles/game.css);</style>
+    
+</head>
+<body>
+    <div class="gameBody">
+        <input type="text" name="" id="question" disabled><br> <br>
+        <input type="text" name="" id="answer"><br>
+        <input type="button" name="" id="btn_checkUserAnswer" class="button"
+        value="Проверить" 
+        onclick=onCheckUserAnswerClick()>
+        <p id="outputText"></p>
+        <input type="button" value="Следующий пример"
+        class="button"
+        id="btn_nextQuestion"
+        onclick=onNextQuestionClick()>
+
+        <p class="score" id="score"></p>
+    </div>
+
+    <div class="historyBody" id="history">
+        <p class="historyHead" id="historyHead">История:</p>
+        <textarea name="" id="historyText" cols="30" rows="20" disabled></textarea>
+    </div>
+<!-- ------------------------------------------------------------------------------------- -->
+<!-- ------------------------------------------------------------------------------------- -->
+<!-- ------------------------------------------------------------------------------------- -->
+    <!-- <input type="button" value="test" id="testBtn" onclick="test()">
+    <input type="text" name="test" id="testInput"> -->
+</body>
+</html>
+
+<script src="../scripts/game.js"></script>

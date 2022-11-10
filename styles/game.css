@@ -1,0 +1,47 @@
+body {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+}
+
+.gameBody {
+    grid-column: 2/3;
+    position:relative;
+    background-color: antiquewhite;
+    padding:10px;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    margin-top: 15px;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#outputText {
+    font-size:25px;
+    font-weight: bold;
+    height:28px;
+    width: fit-content;
+}
+
+.historyBody {
+    top:5%;
+    left:5%;
+    border:solid;
+    border-width: 1px;
+    background-color: antiquewhite;
+    grid-column: 3/4;
+    text-align: center;
+    font-size: 20px;
+    padding:0;
+}
+
+.historyHead {
+    padding:0;
+    margin:0;
+    margin-top:5px;
+}
