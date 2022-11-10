@@ -7,8 +7,6 @@ let questionElem = document.getElementById("question"),
     historyElem = document.getElementById("historyText");
 
 let userScore = 0,  systemResult,
-    resultHasBeenChecked,
-    questionWasAddedInHistory,
     question = "",
     nextButtonToClick = btn_checkUserAnswer;
 
@@ -29,6 +27,8 @@ answerElem.addEventListener("keyup", (key) => {
   }
 
 showNextQuestion();
+toggleButton(btn_checkUserAnswer);
+
 function showNextQuestion() {
         let objOperator = nextQuestion_determineOperator();
 
@@ -55,9 +55,9 @@ function showNextQuestion() {
 
         outputTextElem.innerHTML = ""
         answerElem.value = "";
-        questionWasAddedInHistory = false
-        resultHasBeenChecked = false;
-        btn_nextQuestion.disabled = true;
+
+        toggleButton(btn_nextQuestion);
+        toggleButton(btn_checkUserAnswer);
         //Сделать блокировку checkAnswer
 }
 
@@ -119,20 +119,19 @@ return res;
 
 let emoji = "";
 
-//Видит только первый раз. Почему?
 function checkUserAnswer(){
     let userInput = answerElem.value
-    if (resultHasBeenChecked == true) alert("Дважды отвечать на один и тот же пример нельзя.");
     if (userInput == "" ) userInput = "ответ не указан";
     else {
-        userInput = parseFloat(answerElem.value)
-        if ((userInput == systemResult) && (!resultHasBeenChecked)) {
+        userInput = parseFloat(answerElem.value);
+        if (isNaN(userInput)) alert("В ответе должно быть число");
+        else if (userInput == systemResult) {
             outputTextElem.innerHTML = "ВЕРНО!";  
             outputTextElem.style.color = "green";
             outputTextElem.style.background = "azure";
             emoji = "\u2714;"
             userScore++;
-        } else if (!resultHasBeenChecked) {
+        } else {
             outputTextElem.innerHTML = "ОШИБКА!";  
             outputTextElem.style.color = "red";
             outputTextElem.style.background = `rgb(${255}, ${200}, ${200})`;
@@ -141,11 +140,10 @@ function checkUserAnswer(){
         } 
     }
     refreshScore();
-    resultHasBeenChecked = true;
     
-    if (questionWasAddedInHistory == false) addHistory(question, userInput);
-    btn_nextQuestion.disabled = false;
-    //Сделать блокировку checkAnswer
+    addHistory(question, userInput);
+    toggleButton(btn_nextQuestion);
+    toggleButton(btn_checkUserAnswer);
 }
 
 function refreshScore () {
@@ -156,30 +154,34 @@ function addHistory (question, userInput) {
     historyElem.value = historyElem.value + question + 
     " " + userInput + " " + emoji + "\n"; 
     emoji = "";
-    questionWasAddedInHistory = true;
 }
 
 function toggleButton(btn) {
     if (btn.disabled == false) disableButton(btn);
-    if (btn.disabled == true)
+    else if (btn.disabled == true) (enableButton(btn))
 }
 
 function disableButton(btn){
-
+btn.disabled = true; 
+btn.style.background = "grey";
+btn.style.opacity = "0.5"
+btn.style.color = "gainsboro";
 }
 
 function enableButton(btn){
-    
+    btn.disabled = false; 
+    btn.style.background = "#4CAF50";
+    btn.style.opacity = "1";
+    btn.style.color = "white";
 }
 
+/*-------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
 
+Добавить вывод времени в историю
+Счёт правильных/неправильных/пропущенных ответов
 
-/*-------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------*/
-
-//Добавить вывод времени в историю
-//Затемнение неактивной кнопки
-//Запретить проверять один ответ дважды
-//Удалить флаг наличия примера в истории (т.к. кнопка отключена)
-//Счёт правильных/неправильных/пропущенных ответов
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------*/
